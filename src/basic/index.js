@@ -55,3 +55,56 @@ var app6= new Vue({
         message: "hello"
     }
 })
+
+Vue.component('todo-item',{
+    props: ['todo'],
+    template: '<li>{{ todo.text }}</li>'
+})
+
+
+var app7 = new Vue({
+    el: "#app-7",
+    data: {
+        groceryList:[
+            {id:1,text:'Vegets'},
+            {id:2,text:'Cheese'},
+            {id:3,text:'Whatever'}
+        ]
+    }
+})
+
+
+var data = { a: 1}
+var vm = new Vue({
+    data:data
+})
+
+vm.a == data.a
+vm.a == 2
+data.a
+data.a = 3
+vm.a = 2
+
+var obj = {
+    foo: 'bar'
+}
+
+Object.freeze(obj)
+
+var app8 = new Vue({
+    el: "#app-8",
+    data: obj,
+    created: function () {
+        console.log("created")
+        console.log("foo is " + this.foo)
+        console.log("el " + this.$el)
+    },
+    mounted: function () {
+        console.log("mounted")
+        console.log("el " + this.$el)
+    },
+    updated: function() {
+
+    }
+
+})
