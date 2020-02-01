@@ -16,6 +16,8 @@
 
     <!-- production version, optimized for size and speed -->
     <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 </head>
 <body>
 
@@ -79,6 +81,120 @@
     <p>{{foo}}</p>
     <button v-on:click="foo = 'bas'"> change it</button>
 </div>
+
+<div id="app-9">
+    <p>{{msg}}</p>
+    <button v:once>this will never change {{msg}}</button>
+</div>
+
+<div id="app-10">
+    <p>{{rawHtml}}</p>
+    <p><span v-html="rawHtml"></span></p>
+</div>
+
+<div id="app-11">
+    <div v-bind:id="dynamicId">
+
+    </div>
+</div>
+
+<div id="app-12">
+    <input v-model="isButtonDisabled">
+    <button v-bind:disabled="isButtonDisabled">
+        disabled
+    </button>
+</div>
+
+<div id="app-13">
+    <p>Cautious: only one single expressions at a time</p>
+    <p>
+        javascript expressions {{number + 1}}
+    </p>
+    <p>
+        javascript expressions {{message.split('').reverse().join('')}}
+
+    </p>
+    <p>javascript expressions {{ok ? 'YES' : 'NO' }}
+    </p>
+</div>
+
+<div id="app-14">
+    <a v-bind:href="url"> Dynamic URL</a>
+</div>
+
+<div id="app-15">
+    <p>
+        <a v-bind:[attributename]="url"> Dynamic URL</a>
+    </p>
+    <p>
+        <a v-on:[ename]="doSomething">{{ ename + "me" }}</a>
+    </p>
+    <p>
+        <!--<a v-on:[camelAttributeName]="doSomething">{{camelAttributeName}}</a>-->
+    </p>
+
+</div>
+<div id="app-16">
+    <form v-on:submit.prevent="onsubmit">
+        <input>
+        <button>Send</button>
+    </form>
+</div>
+
+<div id="app-17">
+    <p>
+    <a :href="url">shorthanded v-bind</a>
+    </p>
+    <p>
+    <a :[key]="url">shorthanded v-bind and dynamic argument attribute</a>
+    </p>
+
+    <p>
+        <span id="click1" @click="dosomething">shorthanded v-on</span>
+    </p>
+    <p>
+        <span id="click2" @[ename]="dosomething">shorthanded v-one and dynamic argument attribute</span>
+
+</div>
+
+<div id="app-18">
+    <p>
+        original message: <span>{{message}}</span>
+    </p>
+
+    <p>
+        computed message: <span>{{computedmessage}}</span>
+    </p>
+</div>
+
+<div id="app-19">
+    <p>
+        <span>
+            <!--Watched {{fullName}}-->
+            <input v-model="firstName"/>
+            <input v-model="lastName"/>
+        </span>
+    </p>
+    <p>
+        <span>
+            <!--Computed {{getFullName}}-->
+            {{fullName}}
+        </span>
+    </p>
+</div>
+
+<div id="watch-example">
+    <p>
+        Ask a yes/no question:
+        <input v-model="question">
+    </p>
+    <p>{{ answer }}</p>
+
+</div>
+
+
+
+
 <script src="index.js"></script>
 </body>
 </html>
