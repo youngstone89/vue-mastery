@@ -192,8 +192,174 @@
 
 </div>
 
+<div id="classbindexample">
+    <div class="static"
+         v-bind:class="classdataobject"
+    >
+    </div>
+
+    <div v-bind:class="computeddataobject"
+    >
+    </div>
+    <div v-bind:class="[activeClass, errorClass]"
+    >
+    </div>
+    <div v-bind:class="[isActive ? activeClass : '', hasError ? errorClass: '']"
+    >
+    </div>
+    <div v-bind:class="[{ active: isActive},errorClass]"
+    >
+    </div>
+</div>
+
+<div id="reusecomponentapp">
+    <my-component class="baz boo">
+
+    </my-component>
+</div>
+
+<div id="inlinestyle">
+    <p v-bind:style="{color: activeColor, fontSize: fontsize + 'px'}">
+        Hello inline style
+    </p>
+    <p :style="styleObject">
+        StyleObject
+    </p>
+    <p :style="[styleObject, overridingStyleObject]">
+        Array Style Object Overriding
+    </p>
+    <p :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }">
+        vendor prefixed style
+    </p>
+</div>
 
 
+<div id="conditionalrendering">
+    <template v-if="ok">
+    <h1 v-if="awesome">Vue is awesome!</h1>
+    <h1 v-else>Oh no 😢</h1>
+    </template>
+
+    <template>
+        <div v-if="getRandomValue > 0.5">
+            Now you see me
+        </div>
+        <div v-else>
+            Now you don't
+        </div>
+    </template>
+
+    <div v-if="type === 'A'">
+        A
+    </div>
+    <div v-else-if="type === 'B'">
+        B
+    </div>
+    <div v-else-if="type === 'C'">
+        C
+    </div>
+
+    <template v-if="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username">
+    </template>
+    <template v-else="loginType === 'email'">
+        <label>Email</label>
+        <input placeholder="Enter your email address">
+    </template>
+    <button @click="toggleLoginType">Toggle</button>
+
+
+    <div>
+        <template v-if="loginType === 'username'">
+            <label>Username</label>
+            <input placeholder="Enter your username" key="username-input">
+        </template>
+        <template v-else="loginType === 'email'">
+            <label>Email</label>
+            <input placeholder="Enter your email" key="email-input">
+        </template>
+        <button @click="toggleLoginType">Toggle</button>
+    </div>
+
+    <div v-show="ok">
+        V Show rendered and control CSS display attribute.
+    </div>
+
+</div>
+
+<div id ="listrendering">
+
+    <ul>
+        <li v-for="item in items">
+            {{ item.message}}
+        </li>
+    </ul>
+
+    <ul>
+        <li v-for="(item,index) in items">
+            {{parentScopeProp}} - {{index}} - {{ item.message}}
+        </li>
+    </ul>
+
+    <ol>
+        <li v-for="(item,index) of items">
+            {{parentScopeProp}} - {{index}} - {{ item.message}}
+        </li>
+    </ol>
+
+    <ol>
+        <li v-for="value in object">
+            {{value}}
+        </li>
+    </ol>
+
+    <ol>
+        <li v-for="(value,name,index) in object">
+            {{index}} - {{name}}: {{value}}
+        </li>
+    </ol>
+
+    <div v-for="item in items" v-bind:key="item.id">
+        {{item}}
+    </div>
+    <p>
+        <button @click="pushitem">push</button>
+        <button @click="popitem">pop</button>
+        <button @click="shiftitem">shift</button>
+        <button @click="unshiftitem">unshift</button>
+        <button @click="sortitem">sort</button>
+        <button @click="reverseitem">reverse</button>
+        <button @click="spliceitem">splice 0:1</button>
+        <button @click="replaceitem">replace without mutating</button>
+        <button @click="changearray">caveat test to array change</button>
+        <button @click="changearraylength">change array length</button>
+        <button @click="vuesetitems">check reactivity</button>
+        <button @click="vuesetitemsalias">alias check reactivity</button>
+        <button @click="vmitemssplice">check splice reactivity</button>
+        <button @click="vmitemssplicelength">check splice reactivity to length</button>
+        <button @click="addnewproptonestedobject">set age to user profile</button>
+        <button @click="objectassign">Object Assign</button>
+        <button @click="objectassignaddreactivity">Object Assign and add reactivity</button>
+    </p>
+
+</div>
+
+<div id="displayfilterdata">
+
+    <ul>
+        <li v-for="number of evenNumbers">
+            {{ number }}
+        </li>
+
+    </ul>
+    <ul v-for="set in sets">
+        <li v-for="n in even(set)">
+            {{n}}
+        </li>
+    </ul>
+
+</div>
 
 <script src="index.js"></script>
 </body>

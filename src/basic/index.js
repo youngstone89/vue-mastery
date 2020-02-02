@@ -344,3 +344,229 @@ var watchexample = new Vue({
     }
 })
 
+
+var classbindexample = new Vue({
+    el: '#classbindexample',
+    data: {
+        classdataobject : {
+            isActive: true,
+            'text-danger': false,
+            hasError: false
+
+        },
+        activeClass: 'active',
+        errorClass: 'text-danger',
+        isActive: true,
+        hasError: true
+    },
+    computed: {
+        computeddataobject: function(){
+            return {
+                active: this.classdataobject.isActive && !this.classdataobject.hasError,
+                'text-danger': this.classdataobject.hasError && this.classdataobject.hasError.type === 'fatal'
+            }
+        }
+    }
+})
+
+Vue.component('my-component',{
+    template: '<p class="foo bar">hi</p>'
+})
+
+var reusecomponentapp = new Vue({
+    el: '#reusecomponentapp'
+})
+
+var inlinestyle = new Vue({
+
+    el: '#inlinestyle',
+    data: {
+        activeColor: 'red',
+        fontsize: 30,
+        styleObject: {
+            color: 'red',
+            fontSize: '30px'
+        },
+        overridingStyleObject: {
+            color: 'blue',
+            fontSize: '13px'
+        }
+    }
+})
+
+var conditionalrendering = new Vue({
+
+    el: '#conditionalrendering',
+    data: {
+        awesome: true,
+        ok: false,
+        type: 'A',
+        loginType: 'username'
+    },
+    computed: {
+        getRandomValue: function() {
+            console.log("get random value>>")
+            return Math.random()
+        }
+    },
+    methods: {
+        toggleLoginType: function () {
+            this.loginType = this.loginType === 'username' ? 'email' : 'username'
+        }
+    }
+})
+
+var listrendering = new Vue({
+    el: '#listrendering',
+    data: {
+        parentScopeProp: "father",
+        index: 0,
+        items: [
+            {
+                id: 1,
+                message: 'item 1'
+            },
+            {
+                id: 2,
+                message: 'item 2'
+            },
+            {
+                id: 3,
+                message: 'item 3'
+            },
+            {
+                id: 4,
+                message: 'item 4'
+            }
+        ],
+        object : {
+            title: 'How to do lists in Vue',
+            author: 'Jane Doe',
+            publishedAt: '2016-04-10'
+        },
+        userProfile: {
+            name: 'Anika'
+        }
+    },
+    created: function() {
+            console.log("created>>"+this.items.length)
+            this.index = this.items.length;
+
+    },
+    watch: {
+      items: function(newval,oldval) {
+        console.log("watching",newval,oldval)
+      },
+      userProfile: function(newval,oldval){
+            console.log("watching",newval,oldval)
+      }
+    },
+    methods: {
+        pushitem: function () {
+            this.items.push({
+                id: ++this.index,
+                message: 'new message' + this.index
+            })
+        },
+        popitem: function() {
+            this.items.pop()
+        },
+        shiftitem: function() {
+            this.items.shift()
+        },
+        unshiftitem: function() {
+            this.items.unshift(
+                {
+                    id: this.index++,
+                    message: 'new message' + this.index
+                }
+            )
+        },
+        sortitem: function() {
+            console.log("sorting...")
+            this.items.sort()
+        },
+        reverseitem: function() {
+            this.items.reverse()
+        },
+        spliceitem: function() {
+            this.items.splice(0,1)
+        },
+        replaceitem: function(){
+            this.items = this.items.filter(function(item){
+                return item.message.match(/item/)
+            })
+        },
+        changearray: function(){
+            this.items[0] = {
+                id: 9999,
+                message: 'changed item'
+            }
+        },
+        changearraylength: function(){
+            this.items.length = 1
+        },
+        vuesetitems: function(){
+            Vue.set(this.items, 0, {
+                id: 9999,
+                message: 'changed item'
+            })
+        },
+        vuesetitemsalias: function(){
+            this.$set(this.items,0,{
+                id: 9999,
+                message: 'changed item'
+            })
+        },
+        vmitemssplice: function(){
+            this.items.splice(0, 5, {
+                id: 9999,
+                message: 'changed item'
+            })
+        },
+        vmitemssplicelength: function(){
+            let length = 2
+            this.items.splice(length)
+        },
+        addnewproptonestedobject: function () {
+            this.$set(this.userProfile,'age','27')
+        },
+        objectassign: function () {
+            Object.assign(this.userProfile,{
+                age: 27,
+                favoriteColor: 'blue'
+            })
+        },
+        objectassignaddreactivity: function () {
+            this.userProfile = Object.assign({},this.userProfile,{
+                age: 27,
+                favoriteColor: 'blue'
+            })
+        }
+
+    }
+})
+
+
+var displayfilterdata = new Vue({
+    el: '#displayfilterdata',
+    data: {
+        numbers: [1,2,3,4,5],
+        sets: [[1,2,3,4,5],[6,7,8,9,10]]
+    },
+    computed: {
+        evenNumbers: function () {
+            return this.numbers.filter(function (number) {
+                return number % 2 === 0
+            })
+        }
+    },
+    methods: {
+        even: function(numbers) {
+            return numbers.filter(function(number){
+                return number % 2 === 0
+            })
+        }
+    }
+
+})
