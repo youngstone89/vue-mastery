@@ -551,8 +551,24 @@ var listrendering = new Vue({
 var displayfilterdata = new Vue({
     el: '#displayfilterdata',
     data: {
+        key: 1,
         numbers: [1,2,3,4,5],
-        sets: [[1,2,3,4,5],[6,7,8,9,10]]
+        sets: [[1,2,3,4,5],[6,7,8,9,10]],
+        items: [
+            {msg:'msg'},
+            {msg:'msg'},
+            {msg:'msg'},
+            {msg:'msg'}
+        ],
+        todos: [
+            {id:1,isComplete:true,todo:'todo1'},
+            {id:2,isComplete:true,todo:'todo1'},
+            {id:3,isComplete:false,todo:'todo1'},
+            {id:4,isComplete:true,todo:'todo1'},
+            {id:5,isComplete:false,todo:'todo1'},
+            {id:6,isComplete:true,todo:'todo1'}
+
+        ]
     },
     computed: {
         evenNumbers: function () {
@@ -569,4 +585,86 @@ var displayfilterdata = new Vue({
         }
     }
 
+})
+
+Vue.component('todo-item',{
+    template: '\
+    <li>\
+    {{ title }}\
+    <button @click="$emit(\'remove\')">Remove</button>\
+    </li>\
+    ',
+    props: ['title']
+
+})
+
+var todolistexample = new Vue({
+    el: '#todolistexample',
+    data: {
+        newTodoText: '',
+        todos: [
+            {
+                id: 1,
+                title: 'Do the dishes',
+            },
+            {
+                id: 2,
+                title: 'Take out the trash',
+            },
+            {
+                id: 3,
+                title: 'Mow the lawn'
+            }
+        ],
+        nextTodoId: 4,
+        counter: 0,
+        text: 'text'
+    },
+    methods: {
+        addNewTodo: function(){
+            this.todos.push({
+                id: this.nextTodoId++,
+                title: this.newTodoText
+            })
+            this.newTodoText = ''
+        },
+        greet: function(event){
+            alert(event.target.tagName);
+        },
+        say: function(msg){
+            alert(msg);
+        },
+        warn: function(message,event){
+            if (event) {
+                event.preventDefault()
+            }
+            alert(message)
+        },
+        doThis: function(msg,event){
+            console.log(msg, event.target.tagName)
+        },
+        submit: function(){
+            console.log(this.text)
+        }
+    }
+
+})
+
+var forminputbindings=new Vue({
+    el: '#forminputbindings',
+    data: {
+        message: 'a;sldkfja;lskdjf;',
+        checked: true,
+        checkedNames: [],
+        picked: '',
+        selected: []
+    },
+    methods: {
+        changeListener: function(e) {
+            console.log(e.type)
+        },
+        inputListener: function(e) {
+            console.log(e.type)
+        }
+    }
 })

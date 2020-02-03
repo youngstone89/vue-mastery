@@ -358,7 +358,145 @@
             {{n}}
         </li>
     </ul>
+    <span v-for="n in 10">
+        {{n}}
+    </span>
 
+    <ul>
+    <template v-for="item in items">
+        <li>
+            {{item.msg}}
+        </li>
+    </template>
+    </ul>
+
+    <li v-for="todo in todos" v-if="!todo.isComplete">
+        {{todo}}
+    </li>
+
+    <template v-if="todos.length">
+        <li v-for="todo in todos">
+            {{todo}}
+        </li>
+    </template>
+    <template v-else>
+        <p>No Todos Left!</p>
+    </template>
+    <my-component v-for="todo in todos" v-if="!todo.isComplete" :key="todo.id">
+
+    </my-component>
+</div>
+
+<div id="todolistexample">
+    <form v-on:submit.prevent="addNewTodo">
+        <label for="new-todo">Add a Todo</label>
+        <input v-model="newTodoText"
+               id="new-todo"
+               placeholder="E.g. Feed the cat"
+
+        >
+        <button>Add</button>
+    </form>
+
+    <ul>
+        <li is="todo-item"
+            v-for="(todo,index) in todos"
+            :key="todo.id"
+            :title="todo.title"
+            @remove="todos.splice(index,1)"
+        >
+
+
+        </li>
+
+    </ul>
+
+    <div>
+        <button @click="counter += 1">
+            Add 1
+        </button>
+        <p>The button above has been clicked {{ counter }} time</p>
+    </div>
+    <div>
+        <button @click="greet">greet!</button>
+    </div>
+    <div>
+        <button @click="say('hi')">say</button>
+    </div>
+    <div>
+        <button @click="say('hey')">hey!</button>
+    </div>
+
+    <div>
+        <button @click="warn('Form cannot be submitte yet',$event)">event param</button>
+    </div>
+
+    <div @click="doThis('outer',$event)" id="outer-most">
+        <div @click="doThis('mid',$event)" id="mid-most">
+            <button @click.stop="doThis('inner',$event)">Click Stop Propagation</button>
+        </div>
+    </div>
+    <div @click="doThis('outer',$event)">
+        <div @click="doThis('mid',$event)">
+            <a href="#" @click.prevent.stop="doThis('inner',$event)">Click Prevent Default</a>
+        </div>
+    </div>
+
+    <input v-model="text" @keyup.enter="submit">
+
+
+
+
+
+</div>
+<div id="forminputbindings">
+    <input v-model="message" placeholder="edit me">
+    <p>Message is: {{ message }}</p>
+
+    <span>Multiline message is:</span>
+    <p style="white-space: pre-line;">{{ message }}</p>
+    <br>
+    <textarea v-model="message" placeholder="add multiple lines"></textarea>
+
+    <div>
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+    </div>
+
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+    <label for="mike">Mike</label>
+    <br>
+    <span>Checked names: {{ checkedNames }}</span>
+
+    <input type="radio" id="one" value="One" v-model="picked">
+    <label for="one">One</label>
+    <br>
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <label for="two">Two</label>
+    <br>
+    <span>Picked: {{ picked }}</span>
+
+    <!--<select v-model="selected">-->
+        <!--<option disabled value="">Please select one</option>-->
+        <!--<option>A</option>-->
+        <!--<option>B</option>-->
+        <!--<option>C</option>-->
+    <!--</select>-->
+    <!--<span>Selected: {{ selected }}</span>-->
+
+    <select v-model="selected" multiple>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+    </select>
+    <br>
+    <span>Selected: {{ selected }}</span>
+
+    <input v-on:change="changeListener($event)" v-on:input="inputListener($event)" v-model.lazy="message">
 </div>
 
 <script src="index.js"></script>
